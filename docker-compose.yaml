@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Layanan untuk Spring Boot Web Service
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Mengarahkan port lokal 8080 ke port 8080 di container
+    depends_on:
+      - db # Menunggu layanan database sebelum memulai aplikasi Spring Boot
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=BankWebService
+      - SPRING_DATASOURCE_USERNAME=riky
+      - SPRING_DATASOURCE_PASSWORD=indocyber
+
+  # Layanan untuk MS SQL Server
+  db:
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - "1433:1433" # Mengarahkan port lokal 1433 ke port 1433 di container
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Rahasia123*** # Ganti dengan kata sandi yang aman
