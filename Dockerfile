@@ -1,9 +1,9 @@
-#FROM maven:3.9.6-amazoncorretto-17-al2023 as Builder
-#RUN mkdir app
-#WORKDIR app
-#COPY src /app
-#COPY pom.xml /app
-#RUN mvn install
+FROM maven:3.9.6-amazoncorretto-17-al2023 as Builder
+RUN mkdir app
+WORKDIR app
+COPY src /app
+COPY pom.xml /app
+RUN mvn install
 
 FROM openjdk:17.0.1-jdk-slim
 WORKDIR app
